@@ -1,4 +1,4 @@
-# chordpro-parser.js - ChordPro parser
+# YACPP - Yet Another ChordPro Parser
 
 This is a JavaScript parser for ChordPro files.
 
