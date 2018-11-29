@@ -1,4 +1,4 @@
-import { Lyric } from "./parser.js"
+import { Lyric } from "./chordpro-parser.js"
 import { log } from "./utilities.js"
 
 function compareChords(chordsA, chordsB) {
