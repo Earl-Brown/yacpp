@@ -26,3 +26,10 @@ Currently only ASCII output is supported, more formats will follow.
     var song = "[C]Twinkle [C/E]twinkle [F]little [C]star\n" +
                "[F]How I [C]wonder [G]what you [C]are\n";
     var output = chordpro.to_txt(song);
+
+# CDN
+https://cdn.jsdelivr.net/gh/Earl-Brown/yacpp/chordpro-parser.js
+
+(no minimized solution yet)
+
+This code uses ES2017
