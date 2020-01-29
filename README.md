@@ -36,3 +36,6 @@ https://cdn.jsdelivr.net/gh/Earl-Brown/yacpp/chordpro-parser.js
 (no minimized solution yet)
 
 This code uses ES2017
+
+# Credits:
+This was originally a clone of https://github.com/jperkin/chordpro.js, but I have since done a complete rewrite in ES2017.
