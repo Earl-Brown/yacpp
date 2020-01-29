@@ -2,6 +2,9 @@
 
 This is a JavaScript parser for ChordPro files.
 
+## todo
+Turn this into an NPM package
+
 ## ChordPro format
 
 Basically, take this
