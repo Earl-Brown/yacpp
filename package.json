@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Yet Another ChordPro Parser",
   "main": "index.js",
+  "type": "module",
   "directories": {
     "example": "examples"
   },
