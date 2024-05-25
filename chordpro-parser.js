@@ -149,9 +149,6 @@ const preParseLine = line => {
   return new Sentence(line)
 }
 
-
-
-
 class SongParser {
   constructor(songText) {
     this.Source = songText
