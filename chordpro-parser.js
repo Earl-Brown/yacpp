@@ -120,37 +120,41 @@ class Song {
   }
 }
 
+
+const splitToLines = songText => {
+  let split = songText.toString()
+
+
+  split = split.replace(/[\r\n]+/gim, "\\r")
+  split = split.split("\\r")
+
+  // split = split.replace(/[\r\n]/gim, "\r")
+  // split = split.split("\r")
+  split = split.map(l => l.trim())
+
+  return split
+}
+
+// determine type, return instance of types
+//	* directive
+//	* comment
+//	* empty
+//	* lyric
+// return a class based on type
+const preParseLine = line => {
+  line = line && line.trim()
+  if (!line || line === "") return new EmptyLine()
+  if (line.startsWith("#")) return new Comment(line)
+  if (line.startsWith("{")) return new Directive(line)
+  return new Sentence(line)
+}
+
+
+
+
 class SongParser {
   constructor(songText) {
     this.Source = songText
-    function splitToLines(songText) {
-      let split = songText.toString()
-
-
-      split = split.replace(/[\r\n]+/gim, "\\r")
-      split = split.split("\\r")
-
-      // split = split.replace(/[\r\n]/gim, "\r")
-      // split = split.split("\r")
-      split = split.map(l => l.trim())
-
-      return split
-    }
-
-    // determine type, return instance of types
-    //	* directive
-    //	* comment
-    //	* empty
-    //	* lyric
-    // return a class based on type
-    function preParseLine(line) {
-      line = line && line.trim()
-      if (!line || line === "") return new EmptyLine()
-      if (line.startsWith("#")) return new Comment(line)
-      if (line.startsWith("{")) return new Directive(line)
-      return new Sentence(line)
-    }
-
   }
 
   Parse = function () {
