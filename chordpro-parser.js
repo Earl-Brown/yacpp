@@ -125,8 +125,8 @@ class SongParser {
     this.Source = songText
     function splitToLines(songText) {
       let split = songText.toString()
-      
-      
+
+
       split = split.replace(/[\r\n]+/gim,"\\r")
       split = split.split("\\r")
 
@@ -233,15 +233,7 @@ function isLyric(l) {
 	return !!(l.Sentences  && l.Sentences.length)
 }
 
-class ChordPro {
-  constructor() {
-    this.ParseSong = function(songText) {
-      return new SongParser(songText).Parse()
-    }
-  }
+const ParseSong = songText => new SongParser(songText).parse()
 
-  ParseFile() {}
-}
-
-export default SongParser
-export { ChordPro, SongParser, Lyric, isLyric }
+export default ParseSong
+export { ParseSong, SongParser, Lyric, isLyric }
