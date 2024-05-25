@@ -3,7 +3,7 @@
   todo:
     * recognize aliases
     * recognize closing tags
-		* Add attribute to indicate broken words
+    * Add attribute to indicate broken words
 
 */
 
@@ -12,7 +12,7 @@ import { hasValue, trimArray } from "./utilities.js"
 const reDirectiveSpec = /{([^:}]*)(:\s*?)?(.*?)}/gi,
   reSplitSentenceToTerms = /(.*?)(\[.*?])/gi
 
-class EmptyLine {}
+class EmptyLine { }
 
 class Directive {
   constructor(source) {
@@ -20,11 +20,11 @@ class Directive {
 
     this.Source = source
     let split = source.split(reDirectiveSpec).filter(hasValue)
-    ;[this.Type, , this.Detail] = split.filter(hasValue).map(x => x.toString().trim())
+      ;[this.Type, , this.Detail] = split.filter(hasValue).map(x => x.toString().trim())
   }
 }
 
-class Comment extends Directive {}
+class Comment extends Directive { }
 
 class ChordInfo {
   constructor(source) {
@@ -52,8 +52,8 @@ class Sentence {
 
     var connectedChordsPlaceholder = "&nbsp;",
       content = source
-      .replace(/\]\s*\[/gi, `]${connectedChordsPlaceholder}[`)
-      content = content.split(reSplitSentenceToTerms)
+        .replace(/\]\s*\[/gi, `]${connectedChordsPlaceholder}[`)
+    content = content.split(reSplitSentenceToTerms)
       .map(x => x.trim())
 
     // trim edges of array
@@ -127,14 +127,14 @@ class SongParser {
       let split = songText.toString()
 
 
-      split = split.replace(/[\r\n]+/gim,"\\r")
+      split = split.replace(/[\r\n]+/gim, "\\r")
       split = split.split("\\r")
 
-			// split = split.replace(/[\r\n]/gim, "\r")
-			// split = split.split("\r")
-			split = split.map(l => l.trim())
+      // split = split.replace(/[\r\n]/gim, "\r")
+      // split = split.split("\r")
+      split = split.map(l => l.trim())
 
-			return split
+      return split
     }
 
     // determine type, return instance of types
@@ -144,91 +144,92 @@ class SongParser {
     //	* lyric
     // return a class based on type
     function preParseLine(line) {
-			line = line && line.trim()
+      line = line && line.trim()
       if (!line || line === "") return new EmptyLine()
       if (line.startsWith("#")) return new Comment(line)
       if (line.startsWith("{")) return new Directive(line)
       return new Sentence(line)
     }
 
-    function Parse() {
-      let song = new Song()
-      let currentDirective = null
-      let lines = splitToLines(songText).map(preParseLine)
+  }
 
-      function StartNextDirective(next) {
-        if (currentDirective) {
-          song.Directives.push(currentDirective)
-        }
-        currentDirective = next
+  Parse = function () {
+    let song = new Song()
+    let currentDirective = null
+    let lines = splitToLines(songText).map(preParseLine)
+
+    function StartNextDirective(next) {
+      if (currentDirective) {
+        song.Directives.push(currentDirective)
       }
-
-      while (lines.length > 0) {
-        var line = lines.shift()
-        switch (true) {
-          case line instanceof EmptyLine:
-            StartNextDirective(null)
-            break
-
-          case line instanceof Comment:
-            // this psace intentionally left blank
-            break
-
-          case line instanceof Directive:
-            // check for known metadata
-            //  title, artist...
-            switch (line.Type.toLowerCase()) {
-              case "title":
-                song.Title = line.Detail
-                break
-
-              case "artist":
-                song.Artist = line.Detail
-                break
-
-              case "key":
-                song.Key = line.Detail
-                break
-
-              case "copyright":
-                song.Copyright = line.Detail
-                break
-
-              case "license":
-                song.License = line.Detail
-                break
-
-              case "comment":
-                song.Comments.push(line.Detail)
-                break
-
-              default:
-                if (lines[0] instanceof Sentence) {
-                  line = new Lyric(line.Type)
-                }
-                StartNextDirective(line)
-                break
-            }
-            break
-
-          case line instanceof Sentence:
-            if (!currentDirective || !(currentDirective instanceof Lyric)) {
-              StartNextDirective(new Lyric("Verse"))
-            }
-            currentDirective.Sentences.push(line)
-            break
-        }
-      }
-
-      StartNextDirective()
-      return song
+      currentDirective = next
     }
+
+    while (lines.length > 0) {
+      var line = lines.shift()
+      switch (true) {
+        case line instanceof EmptyLine:
+          StartNextDirective(null)
+          break
+
+        case line instanceof Comment:
+          // this psace intentionally left blank
+          break
+
+        case line instanceof Directive:
+          // check for known metadata
+          //  title, artist...
+          switch (line.Type.toLowerCase()) {
+            case "title":
+              song.Title = line.Detail
+              break
+
+            case "artist":
+              song.Artist = line.Detail
+              break
+
+            case "key":
+              song.Key = line.Detail
+              break
+
+            case "copyright":
+              song.Copyright = line.Detail
+              break
+
+            case "license":
+              song.License = line.Detail
+              break
+
+            case "comment":
+              song.Comments.push(line.Detail)
+              break
+
+            default:
+              if (lines[0] instanceof Sentence) {
+                line = new Lyric(line.Type)
+              }
+              StartNextDirective(line)
+              break
+          }
+          break
+
+        case line instanceof Sentence:
+          if (!currentDirective || !(currentDirective instanceof Lyric)) {
+            StartNextDirective(new Lyric("Verse"))
+          }
+          currentDirective.Sentences.push(line)
+          break
+      }
+    }
+
+    StartNextDirective()
+    return song
   }
 }
 
 function isLyric(l) {
-	if (l instanceof Lyric) return true
-	return !!(l.Sentences  && l.Sentences.length)
+  if (l instanceof Lyric) return true
+  return !!(l.Sentences && l.Sentences.length)
 }
 
 const ParseSong = songText => {
