@@ -157,7 +157,7 @@ class SongParser {
   Parse = function () {
     let song = new Song()
     let currentDirective = null
-    let lines = splitToLines(songText).map(preParseLine)
+    let lines = splitToLines(this.Source).map(preParseLine)
 
     function StartNextDirective(next) {
       if (currentDirective) {
