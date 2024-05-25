@@ -1,14 +1,13 @@
-import { parse, transpose, prettyPrint } from "./libraries/chord-magic/chord-magic.js"
-import { Lyric, isLyric } from './components/parser'
-import { Sentence } from "./LeadsheetRenderer";
+import { parse, transpose, prettyPrint } from 'chord-magic'
+import { isLyric } from './chordpro-parser.js'
 
 const CONSTANTS = {
 	Sharps: ["A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#"],
 	Flats: ["A", "Bb", "B", "C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab"]
 }
 function transposeChordSymbol(symbol, numberOfSemitones, options = {}) {
-	if (!symbol) return symbol		
-	
+	if (!symbol) return symbol
+
 	let parsed = parse(symbol)
 	let transposed = transpose(parsed, Number(numberOfSemitones))
 	let output = prettyPrint(transposed, options.prettyPrint || {})
@@ -57,12 +56,12 @@ class SongTransposer {
 		}
 
 	}
-	
+
 	Transpose(numberOfSemitones) {
 		let {Song: song} = this
 
 		let output = {...song,
-			Key: (song.Key ? transposeChordSymbol(song.Key, numberOfSemitones, this.configuration) : ""), 
+			Key: (song.Key ? transposeChordSymbol(song.Key, numberOfSemitones, this.configuration) : ""),
 			Directives: song.Directives.map(d => transposeDirective(d, numberOfSemitones, this.configuration))
 		}
 		return output
