@@ -151,7 +151,7 @@ class SongParser {
       return new Sentence(line)
     }
 
-    function parse() {
+    function Parse() {
       let song = new Song()
       let currentDirective = null
       let lines = splitToLines(songText).map(preParseLine)
@@ -223,8 +223,6 @@ class SongParser {
       StartNextDirective()
       return song
     }
-
-    this.Parse = parse
   }
 }
 
@@ -233,7 +231,10 @@ function isLyric(l) {
 	return !!(l.Sentences  && l.Sentences.length)
 }
 
-const ParseSong = songText => new SongParser(songText).parse()
+const ParseSong = songText => {
+  const parser = new SongParser(songText)
+  return parser.Parse()
+}
 
 export default ParseSong
 export { ParseSong, SongParser, Lyric, isLyric }
