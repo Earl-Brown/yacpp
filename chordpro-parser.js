@@ -28,11 +28,18 @@ class Comment extends Directive { }
 
 class ChordInfo {
   constructor(source) {
-    this.Source = source.replace(/\[?\]?/gi, "")
-    let a = this.Source.split(" ")
+    const reOutput = /\[(.*):?(.*)?\]/.exec(source)
+    if (reOutput) {
+      this.Source = reOutput.shift()
 
-    this.Symbol = a.shift() || ""
-    this.Comment = a.join(" ")
+      this.Symbol = reOutput.shift()
+      this.Comment = reOutput.join(" ")
+    }
+    else {
+      this.Source = ""
+      this.Symbol = ""
+      this.Comment = ""
+    }
   }
 }
 
