@@ -1,6 +1,11 @@
 {
   "name": "yacpp",
-  "version": "1.0.1",
+  "version": "1.0.2",
+  "changeLog": {
+    "1.0.2": "Fixes",
+    "1.0.1": "Fixes",
+    "1.0.0": "Initial release"
+  },
   "description": "Yet Another ChordPro Parser",
   "main": "index.js",
   "type": "module",
