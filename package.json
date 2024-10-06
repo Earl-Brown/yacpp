@@ -1,7 +1,8 @@
 {
   "name": "yacpp",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "changeLog": {
+    "1.0.3": "Fixes",
     "1.0.2": "Fixes",
     "1.0.1": "Fixes",
     "1.0.0": "Initial release"
