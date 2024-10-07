@@ -28,7 +28,8 @@ class Comment extends Directive { }
 
 class ChordInfo {
   constructor(source) {
-    const reOutput = /\[([^\]]):?(.*)?\]/.exec(source)
+
+    const reOutput = /\[([^\:\]]*):?(.*)?\]/.exec(source)
 
     if (reOutput) {
       this.Source = reOutput.shift()
