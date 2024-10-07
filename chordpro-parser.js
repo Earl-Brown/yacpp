@@ -33,7 +33,7 @@ class ChordInfo {
     if (reOutput) {
       this.Source = reOutput.shift()
 
-      this.Symbol = reOutput.shift()
+      this.Symbol = reOutput.shift().replace(":", "")
       this.Comment = reOutput.join(" ")
     }
     else {
