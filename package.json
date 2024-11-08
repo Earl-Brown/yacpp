@@ -1,7 +1,8 @@
 {
   "name": "yacpp",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "changeLog": {
+    "1.0.6": "Updated parser to include comments in generic directives",
     "1.0.5": "Fixed chord parsing to capture more than the first character of the chord",
     "1.0.4": "Fixed chord and comment parsing",
     "1.0.3": "Fixes",

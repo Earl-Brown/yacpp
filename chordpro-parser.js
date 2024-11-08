@@ -89,9 +89,10 @@ class Sentence {
 }
 
 class Lyric extends Directive {
-  constructor(type) {
+  constructor(type, comment) {
     super()
     this.Type = type
+    this.Comment = comment
     this.Sentences = []
   }
 }
@@ -216,7 +217,7 @@ class SongParser {
 
             default:
               if (lines[0] instanceof Sentence) {
-                line = new Lyric(line.Type)
+                line = new Lyric(line.Type, line.Detail)
               }
               StartNextDirective(line)
               break
