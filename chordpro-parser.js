@@ -211,9 +211,9 @@ class SongParser {
               song.License = line.Detail
               break
 
-            case "comment":
-              song.Comments.push(line.Detail)
-              break
+            // case "comment":
+            //   song.Comments.push(line.Detail)
+            //   break
 
             default:
               if (lines[0] instanceof Sentence) {
